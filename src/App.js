@@ -21,8 +21,8 @@ function App() {
     }
   }
 
-  const handleButtonClick = () => {
-    fetchNewsStories();
+  const handleButtonClick = async () => {
+    await fetchNewsStories();
   }
 
   return (
