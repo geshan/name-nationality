@@ -17,11 +17,13 @@ function App() {
       setMessage(message);
     } catch (err) {
       console.log(`err: ${err.mesasge}`, err);
-      setMessage('could not fetch nationalities');
+      setNationalities([]);
+      setMessage('Could not fetch nationalities, try again later.');
     }
   }
 
-  const handleButtonClick = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     await fetchNationalities();
   }
 
@@ -31,14 +33,16 @@ function App() {
         <div className="title-form">
           <h2>Check Name's Nationalities percent</h2>
           <div style={{ marginBottom: '20px' }}>
-            <input
-              name="personName"
-              type="text"
-              onChange={(e) => setPersonName(e.target.value)}
-              value={personName}
-              placeholder="Enter a person's name"
-            />
-            <button onClick={handleButtonClick}>Get Nationalities</button>
+            <form name="nationalities-form" onSubmit={handleSubmit}>
+              <input
+                name="personName"
+                type="text"
+                onChange={(e) => setPersonName(e.target.value)}
+                value={personName}
+                placeholder="Enter a person's name"
+              />
+              <button onClick={handleSubmit}>Get Nationalities</button>
+            </form>
           </div>
         </div>
         <div className="results">
