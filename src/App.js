@@ -6,7 +6,7 @@ function App() {
   const [message, setMessage] = useState('');
   const [personName, setPersonName] = useState('');
 
-  async function fetchNewsStories () {
+  async function fetchNationalities () {
     try {
 
       const data = await (await fetch(`https://api.nationalize.io/?name=${personName}`)).json();
@@ -22,7 +22,7 @@ function App() {
   }
 
   const handleButtonClick = async () => {
-    await fetchNewsStories();
+    await fetchNationalities();
   }
 
   return (
