@@ -46,13 +46,13 @@ function App() {
           </div>
         </div>
         <div className="results">
-          <div class="message">{message}</div>
+          <div className="message">{message}</div>
           <div className="nationalities">
             {Array.isArray(nationalities) && nationalities.map(
               nationality => {
                 const flagUrl = `https://flagcdn.com/w160/${nationality.country_id.toLowerCase()}.jpg`;
                 const altText = `${nationality.country_id} flag`;
-                return <div><h3>{nationality.country_id} - {(nationality.probability * 100).toFixed(2)}%</h3> <img src={flagUrl} alt={altText} style={{   
+                return <div key={nationality.country_id}><h3>{nationality.country_id} - {(nationality.probability * 100).toFixed(2)}%</h3> <img src={flagUrl} alt={altText} style={{
                   border: "1px solid black"
                 }} /></div>
               }
