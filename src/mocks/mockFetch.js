@@ -17,7 +17,7 @@ const nameNationalizeResponse = {
 }
 
 export default async function mockFetch(url) {
-  if(url.includes('https://api.nationalize.io') && url.includes('john')) {
+  if(url.startsWith('https://api.nationalize.io') && url.includes('john')) {
     return {
       ok: true,
       status: 200,
