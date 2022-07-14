@@ -3,8 +3,10 @@ import mockFetch from './mocks/mockFetch';
 import userEvent from '@testing-library/user-event';
 import App from './App';
 
+let windowFetchSpy;
+
 beforeEach(() => {
-  jest.spyOn(window, 'fetch').mockImplementation(mockFetch);
+  windowFetchSpy = jest.spyOn(window, 'fetch').mockImplementation(mockFetch);
 })
 
 afterEach(() => {
@@ -37,6 +39,8 @@ test('should get nationalities for a name', async() => {
    //Verify percent and flag images are displayed
    expect(await screen.findByText('3 guess(es) found')).toBeVisible();
 
+   expect(windowFetchSpy).toHaveBeenCalled();
+   expect(windowFetchSpy).toHaveBeenCalledWith('https://api.nationalize.io/?name=john');
    expect(screen.getByText('US - 4.84%')).toBeVisible();
    expect(screen.getByText('IM - 4.44%')).toBeVisible();
    expect(screen.getByText('IE - 4.21%')).toBeVisible();
@@ -49,7 +53,7 @@ test('should get nationalities for a name', async() => {
 });
 
 test('should handle error while getting nationalities for a name', async() => {
-  jest.spyOn(console, 'log').mockReturnValue(true);
+  const consoleLogSpy = jest.spyOn(console, 'log').mockReturnValue(true);
   const { container } = render(<App />);
 
   const personNameInput = screen.getByRole('textbox');
@@ -61,6 +65,9 @@ test('should handle error while getting nationalities for a name', async() => {
   userEvent.click(getNationalitiesBtn);
 
   expect(await screen.findByText('Could not fetch nationalities, try again later.')).toBeVisible();
+  expect(consoleLogSpy).toHaveBeenCalled();
+  expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('err'), expect.anything());
+
   const nationalities = container.getElementsByClassName('nationalities')[0];
   expect(nationalities).toBeEmptyDOMElement();
 });
