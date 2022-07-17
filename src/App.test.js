@@ -68,7 +68,7 @@ test('should handle error while getting nationalities for a name', async() => {
 
   expect(await screen.findByText('Could not fetch nationalities, try again later.')).toBeVisible();
   expect(consoleLogSpy).toHaveBeenCalled();
-  expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('err'), expect.anything());
+  expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('err: Unhandled request'));
 
   const nationalities = container.getElementsByClassName('nationalities')[0];
   expect(nationalities).toBeEmptyDOMElement();
