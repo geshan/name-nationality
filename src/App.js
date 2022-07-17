@@ -16,7 +16,7 @@ function App() {
       const message = data.country && data.country.length ? `${data.country.length} guess(es) found` : 'No nationality match found';
       setMessage(message);
     } catch (err) {
-      console.log(`err: ${err.mesasge}`, err);
+      console.log(`err: ${err.message}`);
       setNationalities([]);
       setMessage('Could not fetch nationalities, try again later.');
     }

@@ -53,7 +53,9 @@ test('should get nationalities for a name', async() => {
 });
 
 test('should handle error while getting nationalities for a name', async() => {
-  const consoleLogSpy = jest.spyOn(console, 'log').mockReturnValue(true);
+  //const consoleLogSpy = jest.spyOn(console, 'log').mockReturnValue(undefined);
+  const consoleLogSpy = jest.spyOn(console, 'log');
+
   const { container } = render(<App />);
 
   const personNameInput = screen.getByRole('textbox');
@@ -66,7 +68,7 @@ test('should handle error while getting nationalities for a name', async() => {
 
   expect(await screen.findByText('Could not fetch nationalities, try again later.')).toBeVisible();
   expect(consoleLogSpy).toHaveBeenCalled();
-  expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('err'), expect.anything());
+  expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('err: Unhandled request'));
 
   const nationalities = container.getElementsByClassName('nationalities')[0];
   expect(nationalities).toBeEmptyDOMElement();
