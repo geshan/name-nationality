@@ -53,7 +53,9 @@ test('should get nationalities for a name', async() => {
 });
 
 test('should handle error while getting nationalities for a name', async() => {
-  const consoleLogSpy = jest.spyOn(console, 'log').mockReturnValue(true);
+  //const consoleLogSpy = jest.spyOn(console, 'log').mockReturnValue(undefined);
+  const consoleLogSpy = jest.spyOn(console, 'log');
+
   const { container } = render(<App />);
 
   const personNameInput = screen.getByRole('textbox');
