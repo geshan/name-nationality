@@ -6,14 +6,15 @@ function App() {
   const [message, setMessage] = useState('');
   const [personName, setPersonName] = useState('');
 
-  async function fetchNationalities () {
+  async function fetchNationalities() {
     try {
 
       const data = await (await fetch(`https://api.nationalize.io/?name=${personName}`)).json();
-      const nationalities = data.country && data.country.length ? data.country : [];
+      const hasCountryData = data.country && data.country.length
+      const nationalities =  hasCountryData ? data.country : [];
       setNationalities(nationalities);
           
-      const message = data.country && data.country.length ? `${data.country.length} guess(es) found` : 'No nationality match found';
+      const message = hasCountryData ? `${data.country.length} guess(es) found` : 'No nationality match found';
       setMessage(message);
     } catch (err) {
       console.log(`err: ${err.message}`);
@@ -22,7 +23,7 @@ function App() {
     }
   }
 
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e){
     e.preventDefault();
     await fetchNationalities();
   }
