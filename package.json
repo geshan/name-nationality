@@ -34,5 +34,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@alwaysmeticulous/cli": "^1.7.7",
+    "@alwaysmeticulous/record": "^1.7.6",
+    "@alwaysmeticulous/replayer": "^1.7.6"
   }
 }
