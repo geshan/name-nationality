@@ -1,3 +1,9 @@
 {
-  "testCases": []
+  "testCases": [
+    {
+      "title": "Flags show up correctly",
+      "sessionId": "2022-09-03T12:12:39.095Z_vuQfgdDIxnWihFOLHQpg9",
+      "baseReplayId": "iiqHJzO-S1XFg2frx40Cu"
+    }
+  ]
 }
