@@ -14,8 +14,9 @@ afterEach(() => {
 });
 
 test('renders initial heading and form with elements correctly', () => {
-  render(<App />);
+  render(<App />);  
   const titleElement = screen.getByText(/Check Name/i);
+  screen.debug(titleElement);
   expect(titleElement).toBeInTheDocument();
   expect(screen.getByRole('form')).toBeInTheDocument();
   expect(screen.getByRole('textbox')).toBeInTheDocument();
