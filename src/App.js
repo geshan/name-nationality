@@ -54,7 +54,8 @@ function App() {
                 const flagUrl = `https://flagcdn.com/w160/${nationality.country_id.toLowerCase()}.jpg`;
                 const altText = `${nationality.country_id} flag`;
                 return <div key={nationality.country_id}><h3>{nationality.country_id} - {(nationality.probability * 100).toFixed(2)}%</h3> <img src={flagUrl} alt={altText} style={{
-                  border: "1px solid black"
+                  border: "1px solid black",
+                  width: "50px"
                 }} /></div>
               }
             )}
