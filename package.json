@@ -16,7 +16,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test:meticulous": "meticulous run-all-tests --headless --parallelize --deflake"
   },
   "eslintConfig": {
     "extends": [
@@ -35,5 +36,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@alwaysmeticulous/cli": "^1.7.7",
+    "@alwaysmeticulous/record": "^1.7.6",
+    "@alwaysmeticulous/replayer": "^1.7.6"
   }
 }
