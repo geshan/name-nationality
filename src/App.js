@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './App.css';
+import classNames from 'classnames';
 
 function App() {
   const [nationalities, setNationalities] = useState([]);
@@ -8,25 +9,28 @@ function App() {
   const [messageClassNames, setMessageClassNames] = useState('');
 
   async function fetchNationalities() {
-    let msgClassNames = 'message';
+    let errorInFetch = false;
     try {
-
       const data = await (await fetch(`https://api.nationalize.io/?name=${personName}`)).json();
       const hasCountryData = data.country && data.country.length
       const nationalities =  hasCountryData ? data.country : [];
       setNationalities(nationalities);
           
       const message = hasCountryData ? `${data.country.length} guess(es) found` : 'No nationality match found';
-      msgClassNames += hasCountryData ? ' success' : ' error';
-      setMessageClassNames(msgClassNames);
       setMessage(message);
     } catch (err) {
       console.log(`err: ${err.message}`);
-      setNationalities([]);
-      msgClassNames += ' error';
-      setMessageClassNames(msgClassNames);
+      errorInFetch = true;
+      setNationalities([]);      
       setMessage('Could not fetch nationalities, try again later.');
     }
+
+    const msgClassNames = classNames({
+      message: true,
+      'success': !errorInFetch,
+      'error': errorInFetch,
+    });
+    setMessageClassNames(msgClassNames);
   }
 
   async function handleSubmit(e){
