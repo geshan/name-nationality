@@ -5,8 +5,10 @@ function App() {
   const [nationalities, setNationalities] = useState([]);
   const [message, setMessage] = useState('');
   const [personName, setPersonName] = useState('');
+  const [messageClassNames, setMessageClassNames] = useState('');
 
   async function fetchNationalities() {
+    let msgClassNames = 'message';
     try {
 
       const data = await (await fetch(`https://api.nationalize.io/?name=${personName}`)).json();
@@ -15,10 +17,14 @@ function App() {
       setNationalities(nationalities);
           
       const message = hasCountryData ? `${data.country.length} guess(es) found` : 'No nationality match found';
+      msgClassNames += hasCountryData ? ' success' : ' error';
+      setMessageClassNames(msgClassNames);
       setMessage(message);
     } catch (err) {
       console.log(`err: ${err.message}`);
       setNationalities([]);
+      msgClassNames += ' error';
+      setMessageClassNames(msgClassNames);
       setMessage('Could not fetch nationalities, try again later.');
     }
   }
@@ -47,7 +53,7 @@ function App() {
           </div>
         </div>
         <div className="results">
-          <div className="message">{message}</div>
+          <div className={messageClassNames}>{message}</div>
           <div className="nationalities">
             {Array.isArray(nationalities) && nationalities.map(
               nationality => {
