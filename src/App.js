@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import './App.css';
-import classNames from 'classnames';
+import { Slide, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [nationalities, setNationalities] = useState([]);
-  const [message, setMessage] = useState('');
   const [personName, setPersonName] = useState('');
-  const [messageClassNames, setMessageClassNames] = useState('');
 
   async function fetchNationalities() {
-    let errorInFetch = false;
+    const toastId = 'fetched-nationalities';
     try {
       const data = await (await fetch(`https://api.nationalize.io/?name=${personName}`)).json();
       const hasCountryData = data.country && data.country.length
@@ -17,20 +16,24 @@ function App() {
       setNationalities(nationalities);
           
       const message = hasCountryData ? `${data.country.length} guess(es) found` : 'No nationality match found';
-      setMessage(message);
+      toast.success(message, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000, //3 seconds
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        toastId,
+        transition: Slide
+      });
     } catch (err) {
       console.log(`err: ${err.message}`);
-      errorInFetch = true;
-      setNationalities([]);      
-      setMessage('Could not fetch nationalities, try again later.');
+      setNationalities([]);
+      toast.error('Cound not fetch nationalities, please try again later', {
+        position: toast.POSITION.TOP_RIGHT,
+        toastId
+      });
     }
-
-    const msgClassNames = classNames({
-      message: true,
-      'success': !errorInFetch,
-      'error': errorInFetch,
-    });
-    setMessageClassNames(msgClassNames);
   }
 
   async function handleSubmit(e){
@@ -57,7 +60,7 @@ function App() {
           </div>
         </div>
         <div className="results">
-          <div className={messageClassNames}>{message}</div>
+          <div className="toast-container"><ToastContainer limit={2}/></div>
           <div className="nationalities">
             {Array.isArray(nationalities) && nationalities.map(
               nationality => {
